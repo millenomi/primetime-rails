@@ -253,4 +253,46 @@ $(document).ready ->
 			overlay.updateChannelPicker()
 			overlay.hide()
 			
-			
+	remote = ->
+		$.ajax
+			url: '/poll'
+			method: 'GET'
+			dataType: 'json'
+			success: (x) ->
+				console.log 'tick', x.action
+				if x and x.action
+					switch x.action
+						when 'next'
+							index = player.currentChannelIndex
+							index++
+							if index >= player.channels.length
+								index = 0
+							
+							player.loadChannel player.channels[index]
+							
+							if inside
+								window.clearTimeout(mouseTimeout)
+								hide = -> overlay.hide()
+								mouseTimeout = window.setTimeout(hide, 5000)
+							
+							overlay.show() unless overlay.visible
+							
+						when 'prev'
+							index = player.currentChannelIndex
+							index--
+							if index < 0
+								index = player.channels.length - 1
+							
+							player.loadChannel player.channels[index]
+
+							if inside
+								window.clearTimeout(mouseTimeout)
+								hide = -> overlay.hide()
+								mouseTimeout = window.setTimeout(hide, 5000)
+							
+							overlay.show() unless overlay.visible
+
+						
+					
+	window.setInterval remote, 2000
+	

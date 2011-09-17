@@ -119,8 +119,7 @@ EOF
   	@body_id = 'login'
   
     client = GData::Client::YouTube.new
-    next_url = 'http://localhost:3000/sign_up'
-    next_url = 'http://primetime-dev2.infinite-labs.net/sign_up' if request.user_agent =~ /Mobile|webOS/
+    next_url = 'http://primetime-dev2.infinite-labs.net/sign_up'
     secure = false  # set secure = true for signed AuthSub requests
     sess = true
     @authsub_link = client.authsub_url(next_url, secure, sess)

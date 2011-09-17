@@ -91,7 +91,10 @@
 	
 	#overlay #channel-picker .channel h1 {
 		color: white;
+		line-height: 53px;
+		height: 53px;
 		font: 3em "D-SC", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+		text-overflow: ellipsis-word;
 	}
 	
 	#overlay #channel-picker .channel img {
