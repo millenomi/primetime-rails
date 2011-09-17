@@ -1,0 +1,29 @@
+/* @override 
+	http://localhost:3000/assets/login.css?body=1 */
+
+
+#login {
+	height: 100%;
+}
+
+#login body {
+	background: #eee;
+	height: 100%;
+}
+
+#login #login-main {
+	width: 500px;
+	padding-top: 170px;
+	
+	margin: 0 auto;
+	
+	text-align: center;
+}
+
+#login #login-call {
+	padding-top: 100px;
+}
+
+#login img a {
+	border: 0;
+}
