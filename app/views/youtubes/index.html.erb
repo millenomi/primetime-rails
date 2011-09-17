@@ -1,0 +1,21 @@
+<h1>Listing youtubes</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @youtubes.each do |youtube| %>
+  <tr>
+    <td><%= link_to 'Show', youtube %></td>
+    <td><%= link_to 'Edit', edit_youtube_path(youtube) %></td>
+    <td><%= link_to 'Destroy', youtube, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Youtube', new_youtube_path %>

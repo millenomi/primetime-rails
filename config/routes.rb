@@ -1,4 +1,6 @@
 Primetime::Application.routes.draw do
+  resources :youtubes
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
