@@ -1,6 +1,5 @@
+require 'gdata'
 class YoutubesController < ApplicationController
-
-  before_filter :authenticate_user!
   
   # GET /youtubes
   # GET /youtubes.json
@@ -85,7 +84,29 @@ class YoutubesController < ApplicationController
   end
 
   def recommendations
-    client = YouTubeIt::OAuthClient.new("primetime-dev.infinite-labs.net", "g4LLGFt7FTTXOCLz85fXFzu_", "TwistedL0g1c", "AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ")
-    client.authorize_from_access("access_token", "access_secret")
+    client = GData::Client::YouTube.new
+    client.authsub_token = session[:token] if session[:token]
+    client.developer_key = 'AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ'
+    json = JSON.parse(client.get('https://gdata.youtube.com/feeds/api/users/default/recommendations').body)
+    respond_to do |format|
+      format.json { json }
+    end
   end
+
+  def login
+    client = GData::Client::YouTube.new
+    next_url = 'http://localhost:3000/sign_up'
+    secure = false  # set secure = true for signed AuthSub requests
+    sess = true
+    authsub_link = client.authsub_url(next_url, secure, sess)
+    redirect_to authsub_link
+  end
+
+  def sign_up
+    client = GData::Client::YouTube.new
+    client.authsub_token = params[:token] # extract the single-use token from the URL query params
+    session[:token] = client.auth_handler.upgrade()
+    redirect_to home
+  end
+
 end

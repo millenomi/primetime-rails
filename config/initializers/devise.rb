@@ -200,9 +200,10 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
   require 'openid/store/filesystem'
+  #provider :google, 'primetime-dev.infinite-labs.net', 'g4LLGFt7FTTXOCLz85fXFzu_', :scope => 'http://gdata.youtube.com'
   #config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp')
-  provider :you_tube, 'primetime-dev.infinite-labs.net', 'g4LLGFt7FTTXOCLz85fXFzu_'
-  #config.omniauth :open_id, 'primetime-dev.infinite-labs.net', 'g4LLGFt7FTTXOCLz85fXFzu_', :name =>'google', :scope => 'http://gdata.youtube.com'
+  config.omniauth :google, OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
+  
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
