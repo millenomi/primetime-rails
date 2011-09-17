@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html <% if @body_id %>id="<%= @body_id %>"<% end %>>
 <head>
   <title>Primetime</title>
   <%= stylesheet_link_tag    "application" %>

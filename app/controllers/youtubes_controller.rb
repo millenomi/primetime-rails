@@ -4,6 +4,7 @@ class YoutubesController < ApplicationController
   # GET /youtubes
   # GET /youtubes.json
   def index
+  	@body_id = 'player-page'
     redirect_to '/login' unless session[:token]
   end
 
@@ -115,12 +116,13 @@ EOF
   end
 
   def login
+  	@body_id = 'login'
+  
     client = GData::Client::YouTube.new
     next_url = 'http://localhost:3000/sign_up'
     secure = false  # set secure = true for signed AuthSub requests
     sess = true
-    authsub_link = client.authsub_url(next_url, secure, sess)
-    redirect_to authsub_link
+    @authsub_link = client.authsub_url(next_url, secure, sess)
   end
 
   def sign_up
