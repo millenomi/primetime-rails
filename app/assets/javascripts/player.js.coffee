@@ -1,7 +1,29 @@
 
 $ = jQuery
 
-youtube = null
+class Channel
+	constructor: (@tag) ->
+		# pass
+	
+	content: (done) ->
+		$.ajax
+			url: 'https://gdata.youtube.com/feeds/api/videos',
+			method: 'GET',
+			data:
+				q: chan
+				v: 2
+				alt: 'jsonc'
+			dataType: 'json'
+			success: (response) =>
+				done(response)
+	
+	thumbnail: (done) ->
+		@content (response) ->
+			image = null
+			if response.items and response.items.length > 0
+				image = $('img').attr src: response.items[0].thumbnails.sqDefault
+				
+			done(image)
 
 overlay =
 	element: -> $('#overlay')
@@ -28,20 +50,12 @@ overlay =
 		
 player = 
 	youtube: null
-	channels: ['kittens'] # TODO caricare dalla profilazione; TODO 2 usa backbone.js
+	channels: [new Channel('kittens')] # TODO caricare dalla profilazione; TODO 2 usa backbone.js
 	loadChannel: (chan) ->
 		performLoading = =>
-			$.ajax
-				url: 'https://gdata.youtube.com/feeds/api/videos',
-				method: 'GET',
-				data:
-					q: chan
-					v: 2
-					alt: 'jsonc'
-				dataType: 'json'
-				success: (response) =>
-					items = response.data.items
-					@youtube.loadPlaylist(video.id for video in items, 0, 0, 'hd720')
+			chan.content (response) =>
+				items = response.data.items
+				@youtube.loadPlaylist(video.id for video in items, 0, 0, 'hd720')
 					
 		if @youtube
 			performLoading()
@@ -60,14 +74,15 @@ player =
 	unless youtube.playVideo
 		youtube = $('#player embed')[0]
 		
-	player.ready(youtube)	
+	player.ready(youtube)
+	
 
 $(document).ready ->		
 
 	body = $(document.body)
 	
 	overlay.hideWithoutAnimation()
-	player.loadChannel('kittens')
+	player.loadChannel player.channels[0]
 	
 	body.mouseenter ->
 		overlay.show()
