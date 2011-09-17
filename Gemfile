@@ -32,3 +32,4 @@ gem 'gdata'
 
 gem 'therubyracer'
 gem 'devise'
+gem 'omniauth'
