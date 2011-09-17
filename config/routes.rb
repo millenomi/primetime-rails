@@ -3,6 +3,7 @@ Primetime::Application.routes.draw do
   get "/", :controller => 'youtubes', :action => 'index'
   get "/login", :controller => 'youtubes', :action => 'login'
   get "/sign_up", :controller => 'youtubes', :action => 'sign_up'
+  get "/like", :controller => 'youtubes', :action => 'like'
   match ':action', :controller => 'youtubes'
   resources :youtubes
 

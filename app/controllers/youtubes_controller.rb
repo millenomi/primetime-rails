@@ -84,7 +84,34 @@ class YoutubesController < ApplicationController
     client.developer_key = 'AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ'
     json = JSON.parse(client.get('https://gdata.youtube.com/feeds/api/users/default/recommendations?alt=jsonc').body)
 	
-	render :json => json
+	  render :json => json
+  end
+
+  def perform_like_dislike(id, dislike=false)
+    client = GData::Client::YouTube.new
+    client.authsub_token = session[:token] if session[:token]
+    client.developer_key = 'AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ'
+
+    action = dislike ? 'dislike' : 'like'
+
+xml = <<-EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007">
+  <yt:rating value="#{action}"/>
+</entry>
+EOF
+
+    response = client.post('https://gdata.youtube.com/feeds/api/videos/' + id + '/ratings', xml)
+  end
+
+  def like
+    response = perform_like_dislike(params[:id])
+    render :nothing => true , :status => response.status_code
+  end
+
+  def dislike
+    response = perform_like_dislike(params[:id], true)
+    render :nothing => true , :status => response.status_code
   end
 
   def login
