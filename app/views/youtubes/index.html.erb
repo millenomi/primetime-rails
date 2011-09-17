@@ -1,21 +1,5 @@
-<h1>Listing youtubes</h1>
+<!-- TODO: Redirect al login se necessario -->
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="player"></div>
 
-<% @youtubes.each do |youtube| %>
-  <tr>
-    <td><%= link_to 'Show', youtube %></td>
-    <td><%= link_to 'Edit', edit_youtube_path(youtube) %></td>
-    <td><%= link_to 'Destroy', youtube, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Youtube', new_youtube_path %>
+<div id="overlay"></div>
