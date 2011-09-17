@@ -1,8 +1,7 @@
 Primetime::Application.routes.draw do
 
-  match '/auth/:provider' => 'users/omniauth_callbacks#passthru'
-  devise_for :users, :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks' }
-  resources :users
+  get "youtubes/login", :controller => 'youtubes', :action => 'login'
+  get "/sign_up", :controller => 'youtubes', :action => 'sign_up'
   resources :youtubes
 
   # The priority is based upon order of creation:
@@ -55,8 +54,6 @@ Primetime::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'youtubes#index'
-  get "youtubes/login", :controller => 'youtubes', :action => 'login'
-  get "youtubes/sign_up", :controller => 'youtubes', :action => 'sign_up'
 
   # See how all your routes lay out with "rake routes"
 

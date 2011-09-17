@@ -106,7 +106,7 @@ class YoutubesController < ApplicationController
     client = GData::Client::YouTube.new
     client.authsub_token = params[:token] # extract the single-use token from the URL query params
     session[:token] = client.auth_handler.upgrade()
-    redirect_to home
+    redirect_to '/'
   end
 
 end
