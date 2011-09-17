@@ -10,7 +10,7 @@ class Channel
 			url: 'https://gdata.youtube.com/feeds/api/videos',
 			method: 'GET',
 			data:
-				q: chan
+				q: @tag
 				v: 2
 				alt: 'jsonc'
 			dataType: 'json'
