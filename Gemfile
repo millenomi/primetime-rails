@@ -30,3 +30,4 @@ gem 'gdata'
 # To use debugger
 # gem 'ruby-debug'
 
+gem 'therubyracer'
