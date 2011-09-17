@@ -1,0 +1,24 @@
+/* @override 
+	http://primetime.dev/assets/player.css?body=1 */
+
+#player, #overlay, body, html {
+	background: transparent;
+	width: 100%;
+	height: 100%;
+}
+
+body, html {
+	background: #eee;
+}
+
+#player {
+	position: absolute;
+	z-index: 0;
+	
+	object, embed { width: 100%; height: 100%; }
+}
+
+#overlay {
+	position: absolute;
+	z-index: 1;
+}
