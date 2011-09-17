@@ -76,8 +76,6 @@ overlay =
 				
 				chanElement.click ->
 					player.loadChannel(chan)
-					$('#channels-list .channel').removeClass 'current'
-					chanElement.addClass 'current'
 				
 player = 
 	youtube: null

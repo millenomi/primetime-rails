@@ -4,7 +4,7 @@ class YoutubesController < ApplicationController
   # GET /youtubes
   # GET /youtubes.json
   def index
-    redirect_to '/youtubes/login' unless session[:token]
+    redirect_to '/login' unless session[:token]
   end
 
   # GET /youtubes/1
@@ -82,10 +82,9 @@ class YoutubesController < ApplicationController
     client = GData::Client::YouTube.new
     client.authsub_token = session[:token] if session[:token]
     client.developer_key = 'AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ'
-    json = JSON.parse(client.get('https://gdata.youtube.com/feeds/api/users/default/recommendations').body)
-    respond_to do |format|
-      format.json { json }
-    end
+    json = JSON.parse(client.get('https://gdata.youtube.com/feeds/api/users/default/recommendations?alt=jsonc').body)
+	
+	render :json => json
   end
 
   def login
