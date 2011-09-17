@@ -98,4 +98,22 @@
 		width: 100%;
 		height: auto;
 	}
+	
+	#overlay #add-channel {
+		width: 90px;
+		height: 80px;
+		
+		text-align: center;
+		line-height: 60px;
+		font-family: 'Helvetica Neue';
+		font-weight: bold;
+		font-size: 85px;
+		color: white;
+		cursor: pointer;
+		
+		border-radius: 7px;
+		
+		margin: 0 auto;
+		margin-top: 30px;
+	}
 }

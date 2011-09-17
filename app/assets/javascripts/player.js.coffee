@@ -54,7 +54,7 @@ class SearchChannel extends Channel
 	
 	content: (give) ->
 		@rawContent (response) ->
-			give video.id for video in response.data.items
+			give(video.id for video in response.data.items)
 	
 	rawContent: (done) ->
 		$.ajax
@@ -144,6 +144,7 @@ overlay =
 								
 				clickHandler = =>
 					player.loadChannel(chan)
+					overlay.hide()
 					@updateChannelSelection()
 				
 				chanElement.click clickHandler
@@ -171,7 +172,8 @@ player =
 	
 		performLoading = =>
 			chan.content (response) =>
-				@youtube.loadPlaylist(response)
+				console.log "About to load channel with ids:", response
+				@youtube.loadPlaylist(_.sortBy(response, -> Math.random()))
 				@currentChannelIndex = _.indexOf(@channels, chan)
 				$(document.body).trigger @didChangeCurrentChannel
 					
@@ -241,3 +243,14 @@ $(document).ready ->
 			mouseTimeout = window.setTimeout(hide, 5000)
 		
 		overlay.show() unless overlay.visible
+		
+	$('#add-channel').click ->
+		chan = prompt("Choose a tag for this channel")
+		if chan
+			chan = new SearchChannel(chan)
+			player.channels.push(chan)
+			player.loadChannel(chan)
+			overlay.updateChannelPicker()
+			overlay.hide()
+			
+			
