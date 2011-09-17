@@ -31,3 +31,4 @@ gem 'gdata'
 # gem 'ruby-debug'
 
 gem 'therubyracer'
+gem 'devise'
