@@ -1,0 +1,17 @@
+
+<style>
+img { width: 450px; }
+</style>
+<div style="text-align: center; margin-top: 50px">
+	<%= image_tag 'up.jpg', :id => "up" %><br /><br /><br />
+	<%= image_tag 'down.jpg', :id => "down" %>
+</div>
+
+<script>
+	$('#up').click(function(){
+		$.getJSON('http://primetime-dev2.infinite-labs.net/act?name=next')
+	})
+	$('#down').click(function(){
+		$.getJSON('http://primetime-dev2.infinite-labs.net/act?name=prev')
+	})
+</script>

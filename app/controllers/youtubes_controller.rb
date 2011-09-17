@@ -120,6 +120,7 @@ EOF
   
     client = GData::Client::YouTube.new
     next_url = 'http://localhost:3000/sign_up'
+    next_url = 'http://primetime-dev2.infinite-labs.net/sign_up' if request.user_agent =~ /Mobile|webOS/
     secure = false  # set secure = true for signed AuthSub requests
     sess = true
     @authsub_link = client.authsub_url(next_url, secure, sess)
@@ -129,7 +130,40 @@ EOF
     client = GData::Client::YouTube.new
     client.authsub_token = params[:token] # extract the single-use token from the URL query params
     session[:token] = client.auth_handler.upgrade()
-    redirect_to '/'
+    profile = JSON.parse(client.get('https://gdata.youtube.com/feeds/api/users/default?alt=json').body)
+    username = profile['entry']['yt$username']['$t']
+    session[:username] = username
+    row = Token.find_by_username(username)
+    if (!row)
+      token = Token.new(:username => username, :token => session[:token])
+      token.save
+    end
+
+    if request.user_agent =~ /Mobile|webOS/
+      redirect_to '/mobile' 
+    else
+      redirect_to '/'
+    end
+  end
+
+  def mobile
+    
+  end
+
+  def act
+    token = Token.find_by_username(session[:username])
+    token.action = params[:name]
+    token.save
+    render :nothing => true , :status => :ok
+  end
+
+  def poll
+    token = Token.find_by_username(session[:username])
+    res = token.action
+    res = '' if res.nil?
+    token.action = ''
+    token.save
+    render :text => '{"action":"' + res + '"}'
   end
 
 end
