@@ -4,12 +4,7 @@ class YoutubesController < ApplicationController
   # GET /youtubes
   # GET /youtubes.json
   def index
-    @youtubes = Youtube.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @youtubes }
-    end
+    redirect_to '/youtubes/login' unless session[:token]
   end
 
   # GET /youtubes/1
