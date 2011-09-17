@@ -15,4 +15,7 @@
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+<%#= render :partial => "devise/shared/links" %>
+
+
+<%= link_to 'Sign up with google' , user_omniauth_authorize_path(:google) %>

@@ -32,4 +32,6 @@ gem 'gdata'
 
 gem 'therubyracer'
 gem 'devise'
-gem 'omniauth'
+gem "oa-oauth", :require => "omniauth/oauth"
+gem 'oa-openid', :require => 'omniauth/openid'
+
