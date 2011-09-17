@@ -198,9 +198,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+
   require 'openid/store/filesystem'
   #config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp')
-  config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
+  provider :you_tube, 'primetime-dev.infinite-labs.net', 'g4LLGFt7FTTXOCLz85fXFzu_'
+  #config.omniauth :open_id, 'primetime-dev.infinite-labs.net', 'g4LLGFt7FTTXOCLz85fXFzu_', :name =>'google', :scope => 'http://gdata.youtube.com'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

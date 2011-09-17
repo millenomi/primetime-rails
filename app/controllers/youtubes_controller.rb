@@ -1,4 +1,7 @@
 class YoutubesController < ApplicationController
+
+  before_filter :authenticate_user!
+  
   # GET /youtubes
   # GET /youtubes.json
   def index
@@ -79,5 +82,10 @@ class YoutubesController < ApplicationController
       format.html { redirect_to youtubes_url }
       format.json { head :ok }
     end
+  end
+
+  def recommendations
+    client = YouTubeIt::OAuthClient.new("primetime-dev.infinite-labs.net", "g4LLGFt7FTTXOCLz85fXFzu_", "TwistedL0g1c", "AI39si50pWc6_Dsthhh-Wd49dkeffX6HX8TWhztcx_zgaTusACAnIhzlHS7xWZRPuNXJfkrgqFJRUu1WL17WH11iKWMjYQzNxQ")
+    client.authorize_from_access("access_token", "access_secret")
   end
 end

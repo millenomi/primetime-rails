@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
 	def self.find_for_google(access_token, signed_in_resource=nil)
 	  	data = access_token['user_info']
+	  	p access_token
 	    if user = User.find_by_email(data["email"])
 	      user
 	    else # Create a user with a stub password.
